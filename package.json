@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "startDev" : "nodemon index.js"
+    "startDev" : "nodemon ./chapter03/express/express_study2.js"
   },
   "author": "",
   "license": "ISC",
