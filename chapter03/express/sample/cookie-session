@@ -5,8 +5,8 @@ const sessKey = new Date()
 session[sessKey] = {name : 'soyoung'}
 
 http.createServer((req, res) => {
-    res.writeHead(200, {'set-cookie':'name=soyoung'})
-    res.end('Session-Cookie --> Header')
+    res.writeHead(200, {'set-cookie':`session = ${sessKey}`})
+    res.end('Session-Cookie!! --> Header')
 }).listen(8080, () => {
     console.log('gogo~')
 })
