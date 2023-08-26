@@ -47,7 +47,7 @@ app.get('/login', (req, res) => {
     res.end('LOGIN OK');
 });
 
-app.get('/logout', (req,res) => {
+app.get('/logout', (req, res) => {
     res.clearCookie('connect.sid');
     res.end('LOGOUT OK');
 });

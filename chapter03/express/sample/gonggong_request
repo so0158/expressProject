@@ -1,0 +1,62 @@
+const morgan = require('morgan');
+const request = require('request');
+const express = require('express');
+const app = express();
+
+/*포트설정*/
+app.set('port', process.env.PORT || 8080);
+
+/* 공통 미들웨어 */
+app.use(morgan('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+/* 라우팅 설정*/
+app.get('/weather', (req, res) => {
+    //const client_id = 'En7aoB_LJ7Y9qZAay11t'; //'발급받은 client id';
+    //const client_secret = 'VVe8B0MOiG'; //'발급받은 client secret';
+    var url = 'http://apis.data.go.kr/1360000/RoadWthrInfoService/getCctvStnRoadWthr';
+    var queryParams = '?' + encodeURIComponent('serviceKey') + '=SrBMz0xEXYXN5ImKxSlr9dOrvDEcSR0iroCsp%2FCcPBfDikI40AmZRnThr%2B1lqDwNZ0SPSsgF4teJS8Vm2yIFDQ%3D%3D'; /* Service Key*/
+    queryParams += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); /* */
+    queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10'); /* */
+    queryParams += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('JSON'); /* */
+    queryParams += '&' + encodeURIComponent('eqmtId') + '=' + encodeURIComponent('0500C00001'); /* */
+    queryParams += '&' + encodeURIComponent('hhCode') + '=' + encodeURIComponent('00'); /* */
+
+    request({
+        url: url + queryParams,
+        method: 'GET'
+    }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+           // let newsItem = JSON.parse(body)?.response?.body
+           let newsItem = JSON.parse(body)?.response?.body?.items?.item
+            console.log(newsItem)
+            //items":{"item":[{"baseDate":"20230815","baseTime":"2059","weatherNm":"현상없음"}]}
+
+            const newJson = {
+                baseDate: [],
+                baseTime: [],
+                weatherNm: [],
+
+
+            }
+            for (let i = 0; i < newsItem.length; i++) {
+
+                newJson.baseDate.push(newsItem[i].baseDate);
+                newJson.baseTime.push(newsItem[i].baseTime);
+                newJson.weatherNm.push(newsItem[i].weatherNm);
+
+            }
+            res.json(newJson);
+        } else {
+            res.status(response.statusCode).end();
+            console.log('error = ' + response.statusCode);
+        }
+    }
+    );
+});
+/* 서버와 포트 연결 */
+app.listen(app.get('port'), () => {
+    console.log(app.get('port'), '번 포트 연결즁~');
+})
+
