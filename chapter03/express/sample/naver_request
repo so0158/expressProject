@@ -24,7 +24,7 @@ app.get('/naver/news', (req, res) => {
         qs: option,
         headers: {
             'X-Naver-Client-Id': client_id,
-            'X-Naver-Client-Secret': client_secret
+            'X- -Client-Secret': client_secret
         },
     };
 
