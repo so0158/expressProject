@@ -1,0 +1,21 @@
+const redis = require('redis');
+const client = redis.createClient({
+   // legacyMode: true,
+    port: 6379,
+    host: '127.0.0.1'
+});
+
+async function run() {
+    await client.connect();
+    //await client.get('myKey', (error, value) => {
+    //     console.log(error);
+    // });
+    const value = await client.get("myKey");
+    console.log(value);
+
+    const tmp = await client.set('tmpKey', 'TEST')
+    console.log(tmp); //OK
+    await client.disconnect();
+};
+
+run();
