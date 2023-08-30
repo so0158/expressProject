@@ -11,11 +11,18 @@ async function run() {
     //     console.log(error);
     // });
     const value = await client.get("myKey");
-    console.log(value);
+    console.log(value); //myVal
 
     const tmp = await client.set('tmpKey', 'TEST')
     console.log(tmp); //OK
+    
+    const today =  client.lPush('today', '20230830');
+    console.log(today);//1
+    const toVal =  client.lPop('today'); //20230830
+    console.log(toVal);     
+
     await client.disconnect();
+    
 };
 
 run();
