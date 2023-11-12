@@ -22,7 +22,10 @@
     "express-session": "^1.17.3",
     "jquery": "^3.7.0",
     "morgan": "^1.10.0",
+    "mysql2": "^3.6.3",
     "redis": "^4.6.8",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "sequelize": "^6.34.0",
+    "sequelize-cli": "^6.6.2"
   }
 }
