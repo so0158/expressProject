@@ -1,7 +1,7 @@
-const { DataTypes } = require("sequelize");
+const { Sequelize, DataTypes } = require("sequelize");
 
-mudule.exports = (sequelize, DataTypes) => {
-    const newCustomer = sequelize.define("new_customer", {
+mudule.exports = (Sequelize, DataTypes) => {
+    const newCustomer = Sequelize.define("new_customer", {
         name: {
             type: DataTypes.String(20),
             allowNull: false
@@ -12,11 +12,11 @@ mudule.exports = (sequelize, DataTypes) => {
         },
         joined_date: {
             type: 'TIMESTAMP',
-            defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
             allowNull: false
         },
     }, {
        timestamps: false 
     });
     return newCustomer;
-}
+};
